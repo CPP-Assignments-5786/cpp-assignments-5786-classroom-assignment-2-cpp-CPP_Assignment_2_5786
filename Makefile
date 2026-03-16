@@ -1,6 +1,7 @@
 CXX=clang++
 CXXFLAGS=-std=c++23 -Werror -Wsign-conversion
 TIDY_FLAGS=-checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-* --warnings-as-errors=*
+TIDY_EXCLUDE=test.cpp main.cpp StudentTest.cpp
 
 SOURCES=Song.cpp Playlist.cpp MusicLibrary.cpp
 OBJECTS=$(subst .cpp,.o,$(SOURCES))
@@ -8,11 +9,13 @@ OBJECTS=$(subst .cpp,.o,$(SOURCES))
 all: demo
 	./demo
 
+grade: test tidy
+
 demo: main.o $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $^ -o demo
 
-test: TestRunner.o $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $^ -o test
+test: TestRunner.o $(OBJECTS) student_test
+	$(CXX) $(CXXFLAGS) TestRunner.o $(OBJECTS) -o test
 	./test
 
 student_test: StudentTestRunner.o $(OBJECTS)
@@ -41,9 +44,9 @@ MusicLibrary.o: MusicLibrary.cpp MusicLibrary.hpp Playlist.hpp Song.hpp
 main.o: main.cpp Song.hpp Playlist.hpp MusicLibrary.hpp
 
 tidy:
-	clang-tidy *.cpp $(TIDY_FLAGS) -- $(CXXFLAGS)
+	clang-tidy $(filter-out $(TIDY_EXCLUDE), $(wildcard *.cpp)) $(TIDY_FLAGS) -- $(CXXFLAGS)
 
 clean:
 	rm -f *.o demo test student_test
 
-.PHONY: all test tidy student_test clean
+.PHONY: all test tidy student_test grade clean
