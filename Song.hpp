@@ -57,6 +57,9 @@ namespace music {
          * Should increment songCount.
          */
         Song(const Song& other);
+        Song& operator=(const Song& other); // Copy assignment
+        Song(Song&& other) noexcept;        // Move constructor
+        Song& operator=(Song&& other) noexcept; // Move assignment
 
         /**
          * @brief Destructor
@@ -71,7 +74,7 @@ namespace music {
          * @return The title as a string
          * MUST be implemented inline in this header file.
          */
-        inline std::string getTitle() const {
+        std::string getTitle() const {
             return title;
         }
 
@@ -80,7 +83,7 @@ namespace music {
          * @return The artist as a string
          * MUST be implemented inline in this header file.
          */
-        inline std::string getArtist() const {
+        std::string getArtist() const {
             return artist;
         }
 
@@ -89,7 +92,7 @@ namespace music {
          * @return Duration in seconds
          * MUST be implemented inline in this header file.
          */
-        inline int getDuration() const {
+        int getDuration() const {
             return durationSeconds;
         }
 
@@ -141,4 +144,3 @@ namespace music {
 } // namespace music
 
 #endif // SONG_HPP
-
