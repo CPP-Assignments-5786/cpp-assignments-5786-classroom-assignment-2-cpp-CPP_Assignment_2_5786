@@ -60,6 +60,9 @@ namespace music {
          * @param other The library to copy from
          */
         MusicLibrary(const MusicLibrary& other);
+        MusicLibrary& operator=(const MusicLibrary& other); // Copy assignment
+        MusicLibrary(MusicLibrary&& other) noexcept;        // Move constructor
+        MusicLibrary& operator=(MusicLibrary&& other) noexcept; // Move assignment
 
         /**
          * @brief Destructor
@@ -74,7 +77,7 @@ namespace music {
          * @brief Get owner name
          * MUST be inline.
          */
-        inline std::string getOwnerName() const {
+        std::string getOwnerName() const {
             return ownerName;
         }
 
@@ -82,7 +85,7 @@ namespace music {
          * @brief Get number of playlists
          * MUST be inline.
          */
-        inline int getPlaylistCount() const {
+        int getPlaylistCount() const {
             return count;
         }
 
@@ -177,4 +180,3 @@ namespace music {
 } // namespace music
 
 #endif // MUSICLIBRARY_HPP
-
