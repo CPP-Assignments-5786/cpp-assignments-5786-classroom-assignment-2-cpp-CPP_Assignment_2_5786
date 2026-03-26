@@ -27,7 +27,7 @@ namespace music {
     class Playlist {
     private:
         std::string name;
-        Song** songs;           // Dynamic array of Song pointers
+        Song** songs;  // Dynamic array of Song pointers
         int capacity;           // Maximum number of songs
         int count;              // Current number of songs
 
@@ -67,6 +67,9 @@ namespace music {
          * Must create new Song objects (deep copy).
          */
         Playlist(const Playlist& other);
+        Playlist& operator=(const Playlist& other); // Copy assignment
+        Playlist(Playlist&& other) noexcept;        // Move constructor
+        Playlist& operator=(Playlist&& other) noexcept; // Move assignment
 
         /**
          * @brief Destructor
@@ -82,7 +85,7 @@ namespace music {
          * @return The name as a string
          * MUST be implemented inline.
          */
-        inline std::string getName() const {
+        std::string getName() const {
             return name;
         }
 
@@ -91,7 +94,7 @@ namespace music {
          * @return The count
          * MUST be implemented inline.
          */
-        inline int getCount() const {
+        int getCount() const {
             return count;
         }
 
@@ -100,7 +103,7 @@ namespace music {
          * @return The capacity
          * MUST be implemented inline.
          */
-        inline int getCapacity() const {
+        int getCapacity() const {
             return capacity;
         }
 
@@ -109,7 +112,7 @@ namespace music {
          * @return true if no songs
          * MUST be implemented inline.
          */
-        inline bool isEmpty() const {
+        bool isEmpty() const {
             return count == 0;
         }
 
@@ -197,4 +200,3 @@ namespace music {
 } // namespace music
 
 #endif // PLAYLIST_HPP
-
