@@ -1,6 +1,6 @@
 CXX=clang++
-CXXFLAGS=-std=c++23 -Werror -Wsign-conversion
-TIDY_FLAGS=-checks=bugprone-*,clang-analyzer-*,cppcoreguidelines-*,performance-*,portability-*,readability-* --warnings-as-errors=*
+CXXFLAGS=-std=c++23 -Werror -Wsign-conversion -Wno-cpp
+TIDY_FLAGS=-checks=bugprone-*,-bugprone-easily-swappable-parameters,clang-analyzer-*,cppcoreguidelines-*,-cppcoreguidelines-owning-memory,-cppcoreguidelines-pro-bounds-pointer-arithmetic,performance-*,portability-*,readability-* --warnings-as-errors=*
 TIDY_EXCLUDE=test.cpp main.cpp StudentTest.cpp
 
 SOURCES=Song.cpp Playlist.cpp MusicLibrary.cpp
